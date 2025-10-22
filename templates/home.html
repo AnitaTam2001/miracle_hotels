@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">Welcome to Miracle Hotels</h1>
+        <p class="lead mb-4">Experience luxury and comfort in the heart of the city</p>
+        <a href="{% url 'rooms' %}" class="btn btn-primary btn-lg">View Our Rooms</a>
+        <a href="{% url 'check_availability' %}" class="btn btn-outline-light btn-lg">Check Availability</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="fas fa-wifi fa-3x text-primary mb-3"></i>
+                <h4>Free WiFi</h4>
+                <p>High-speed internet access throughout the hotel</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-utensils fa-3x text-primary mb-3"></i>
+                <h4>Restaurant</h4>
+                <p>Fine dining experience with international cuisine</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-swimming-pool fa-3x text-primary mb-3"></i>
+                <h4>Swimming Pool</h4>
+                <p>Luxurious pool for relaxation and exercise</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Rooms -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Rooms</h2>
+        <div class="row">
+            {% for room_type in room_types %}
+            <div class="col-md-4">
+                <div class="card room-card">
+                    {% if room_type.image %}
+                    <img src="{{ room_type.image.url }}" class="card-img-top" alt="{{ room_type.name }}">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="{{ room_type.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ room_type.name }}</h5>
+                        <p class="card-text">{{ room_type.description|truncatewords:20 }}</p>
+                        <p class="h5 text-primary">${{ room_type.price_per_night }}/night</p>
+                        <a href="{% url 'room_detail' room_type.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            {% if room_type.image %}
+            <img src="{{ room_type.image.url }}" class="img-fluid rounded mb-4" alt="{{ room_type.name }}">
+            {% else %}
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded mb-4" alt="{{ room_type.name }}">
+            {% endif %}
+            
+            <h1>{{ room_type.name }}</h1>
+            <p class="lead">{{ room_type.description }}</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h5>Room Features</h5>
+                    <ul>
+                        <li>Capacity: {{ room_type.capacity }} people</li>
+                        <li>Free High-Speed WiFi</li>
+                        <li>Air Conditioning</li>
+                        <li>Flat Screen TV</li>
+                        <li>Mini Bar</li>
+                        <li>Room Service</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Amenities</h5>
+                    <ul>
+                        <li>Swimming Pool Access</li>
+                        <li>Fitness Center</li>
+                        <li>Spa Services</li>
+                        <li>Restaurant</li>
+                        <li>24/7 Front Desk</li>
+                        <li>Laundry Service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-primary">${{ room_type.price_per_night }}/night</h3>
+                    <p class="text-success">
+                        <i class="fas fa-check-circle"></i> 
+                        {{ available_rooms.count }} rooms available
+                    </p>
+                    
+                    <form method="post" action="{% url 'booking' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="room" class="form-label">Select Room</label>
+                            <select class="form-select" id="room" name="room" required>
+                                {% for room in available_rooms %}
+                                <option value="{{ room.id }}">Room {{ room.room_number }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="check_in" class="form-label">Check-in Date</label>
+                            <input type="date" class="form-control" id="check_in" name="check_in" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="check_out" class="form-label">Check-out Date</label>
+                            <input type="date" class="form-control" id="check_out" name="check_out" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Book Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

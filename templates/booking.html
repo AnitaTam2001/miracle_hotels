@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Book Your Stay</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="guest_name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="guest_name" name="guest_name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="guest_email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="guest_email" name="guest_email" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="guest_phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="guest_phone" name="guest_phone" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="room" class="form-label">Room</label>
+                                    <select class="form-select" id="room" name="room" required>
+                                        <option value="">Select a room</option>
+                                        {% for room in rooms %}
+                                        <option value="{{ room.id }}" {% if selected_room and selected_room.id == room.id %}selected{% endif %}>
+                                            Room {{ room.room_number }} - {{ room.room_type.name }} (${{ room.room_type.price_per_night }}/night)
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="check_in" class="form-label">Check-in Date</label>
+                                    <input type="date" class="form-control" id="check_in" name="check_in" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="check_out" class="form-label">Check-out Date</label>
+                                    <input type="date" class="form-control" id="check_out" name="check_out" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Complete Booking</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

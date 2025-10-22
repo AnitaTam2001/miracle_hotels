@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Contact Us</h1>
+            <p class="lead">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Information</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong><br>123 Luxury Street<br>City, State 12345</p>
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong><br>+1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong><br>info@miraclehotels.com</p>
+                    <p><i class="fas fa-clock"></i> <strong>Front Desk:</strong><br>24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
